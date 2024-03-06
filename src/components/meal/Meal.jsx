@@ -40,7 +40,7 @@ const Meal = ({searchTerm}) => {
 
   return (
     <Container className='p-5'>
-        {loading && <div>A mment please ...</div>}
+        {loading && <div>A moment please ...</div>}
         {error && (
             <div>{`There is a problem fetching the data -${error}`}</div>
         )}
