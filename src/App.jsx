@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import MyNav from './nav/Mynav'
+import MyNav from './components/nav/MyNav'
+import Meal_Page from './components/meal/Meal_Page';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
     <MyNav />
       <Routes>
-        <Route path='/' element={<Home/>} />
+        <Route path='/' element={<Meal_Page/>} />
       </Routes>
 
     </>
