@@ -1,9 +1,12 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
+import Meal from './Meal'
 
-const Meal_Page = () => {
+const Meal_Page = ({searchTerm}) => {
   return (
-    <Container>Meal_Page</Container>
+    <Container>
+        <Meal searchTerm={searchTerm} />
+    </Container>
   )
 }
 

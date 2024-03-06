@@ -1,10 +1,17 @@
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function MyNav() {
+function MyNav({onSearch}) {
+  const [searchTerm, setSearchTerm] =useState('');
+
+  const handleSearch = () => {
+    onSearch(searchTerm);
+  }
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container fluid>
@@ -25,8 +32,10 @@ function MyNav() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              value={searchTerm}
+              onChange={(e)=>setSearchTerm(e.target.value)}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success" onClick={handleSearch}>Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
