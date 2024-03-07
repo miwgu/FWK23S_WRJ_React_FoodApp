@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Card, Container } from 'react-bootstrap';
+import { fetchMeals } from '../api/getMeals';
 
 const Meal = ({searchTerm}) => {
     
@@ -10,7 +11,7 @@ const Meal = ({searchTerm}) => {
     const [error, setError]= useState(null);
 
     useEffect(()=>{
-        axios
+       /* axios
         .get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`)
         .then((response)=>{
 
@@ -33,7 +34,26 @@ const Meal = ({searchTerm}) => {
         })
         .finally(()=>{
             setLoading(false);
-        });
+        });*/
+
+        const fetchData = async() =>{
+            try {
+                const mealsData =  await fetchMeals(searchTerm);
+                setData(mealsData);
+                setError(null);
+
+            }catch (error){
+                console.error('Error fetching meals: ',error);
+                setError(error.message);
+                setData(null);
+
+            } finally{
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+
     }, [searchTerm]);
 
 
