@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
+import { getMealById } from '../api/getMeals';
 
 
 const MealDetails = () => {
@@ -12,6 +13,7 @@ const MealDetails = () => {
    const [error, setError]= useState(null);
 
    useEffect(()=>{
+    /*
        axios
        .get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`)
        .then((response)=>{
@@ -35,7 +37,25 @@ const MealDetails = () => {
     })
     .finally(()=>{
         setLoading(false);
-    })
+    })*/
+
+    const fetchData = async() =>{
+      try{
+        const mealDataById = await getMealById(mealId);
+        setMealDetails(mealDataById);
+        setError(null);
+
+      } catch (error){
+        console.error('Error fetching a meal by ID: ', error)
+        setError(error.message);
+        setMealDetails(null);
+
+      } finally{
+        setLoading(false);
+      }
+    } ;
+
+    fetchData();
 
    },[mealId]);
 
