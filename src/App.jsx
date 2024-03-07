@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import './App.css'
 import MyNav from './components/nav/MyNav'
 import Meal_Page from './components/meal/Meal_Page';
@@ -10,9 +10,11 @@ import MealDetails from './components/meal/MealDetails';
 
 function App() {
   const [searchTerm, setSearchTerm]= useState('');
+  const navigate = useNavigate();
 
   const handleSearch = (term) =>{
     setSearchTerm(term);
+    navigate('/');
   };
 
   return (
