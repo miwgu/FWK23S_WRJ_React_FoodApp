@@ -1,14 +1,28 @@
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Card, Container } from 'react-bootstrap';
 import { fetchMeals } from '../api/getMeals';
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa6";
 
 const Meal = ({searchTerm}) => {
     
     const [data, setData]= useState(null);
     const [loading, setLoading]= useState(true);
     const [error, setError]= useState(null);
+    const [favorites, setFavorites] = useState([]);
+    const [isHovered, setIsHovered] = useState(false);
+
+    const toggleFavorite = (idMeal) =>{
+        if(favorites.includes(idMeal)){
+            setFavorites(favorites.filter((favId)=>favId !== idMeal))
+        } else {
+            setFavorites([...favorites, idMeal]);
+            console.log("Favorites: ",favorites)
+
+        }
+    };
+    
 
     useEffect(()=>{
        /* axios
@@ -74,6 +88,18 @@ const Meal = ({searchTerm}) => {
                 <Link to ={`/meal-details/${idMeal}`} style={{textDecoration: 'none'}}>
                 <Card style={{width:'100%'}} key={idMeal}>
                     <Card.Img variant="top" src={strMealThumb} />
+                    <div  
+                         onMouseEnter={()=> setIsHovered(true)}  
+                         onMouseLeave={()=> setIsHovered(false)} 
+                         onClick={()=>toggleFavorite(idMeal) }
+                    >
+
+                     {favorites.includes(idMeal) || isHovered ? (
+                        <FaHeart color='red' />
+                     ):(
+                        <FaRegHeart />
+                     )}
+                    </div>
                     <Card.Body>
                         <Card.Title>
                             {strMeal}
