@@ -11,7 +11,7 @@ const Meal = ({searchTerm}) => {
     const [loading, setLoading]= useState(true);
     const [error, setError]= useState(null);
     const [favorites, setFavorites] = useState([]);
-    const [isHovered, setIsHovered] = useState(false);
+    const [hoveredMealId, setHoveredMealId] = useState(null);
 
     const toggleFavorite = (idMeal) =>{
         if(favorites.includes(idMeal)){
@@ -89,12 +89,12 @@ const Meal = ({searchTerm}) => {
                 <Card style={{width:'100%'}} key={idMeal}>
                     <Card.Img variant="top" src={strMealThumb} />
                     <div  
-                         onMouseEnter={()=> setIsHovered(true)}  
-                         onMouseLeave={()=> setIsHovered(false)} 
+                         onMouseEnter={()=> setHoveredMealId(idMeal)}  
+                         onMouseLeave={()=> setHoveredMealId(null)} 
                          onClick={()=>toggleFavorite(idMeal) }
                     >
 
-                     {favorites.includes(idMeal) || isHovered ? (
+                     {favorites.includes(idMeal) || hoveredMealId === idMeal? (
                         <FaHeart color='red' />
                      ):(
                         <FaRegHeart />
