@@ -6,7 +6,7 @@ const Meal_Page = ({searchTerm}) => {
   return (
     
     <Container>
-        <Meal searchTerm={searchTerm} />
+        <Meal searchTerm={searchTerm}  />
     </Container>
     
   )

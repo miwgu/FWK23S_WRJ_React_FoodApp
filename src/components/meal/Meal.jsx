@@ -20,8 +20,9 @@ const Meal = ({searchTerm}) => {
            : [...favorites, idMeal];
         setFavorites(updatedFav); 
         localStorage.setItem('favorites',JSON.stringify(updatedFav));
+        //onToggleFavorite(idMeal); // Call onToggleFavorite after updating favorites
     };
-    console.log("Favorites: ",favorites)
+   
     
 
     useEffect(()=>{
@@ -68,18 +69,10 @@ const Meal = ({searchTerm}) => {
 
         fetchData();
 
+        //Load favorites from localStrage on component mount
+        const storedFavorites = JSON.parse(localStorage.getItem('favorites'))||[];
+        setFavorites(storedFavorites);
     }, [searchTerm]);
-
-
-
-    const handleCardClick = (e, idMeal) =>{
-        if(!e.target.closest('.heart-icon')){
-            // Prevent default navigation behavior
-            e.preventDefault();
-          window.location.href=`/meal-details/${idMeal}`;
-        }
-
-    }
 
   return (
     <Container className='p-5'>
