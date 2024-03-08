@@ -14,14 +14,14 @@ const Meal = ({searchTerm}) => {
     const [hoveredMealId, setHoveredMealId] = useState(null);
 
     const toggleFavorite = (idMeal) =>{
-        if(favorites.includes(idMeal)){
-            setFavorites(favorites.filter((favId)=>favId !== idMeal))
-        } else {
-            setFavorites([...favorites, idMeal]);
-            console.log("Favorites: ",favorites)
 
-        }
+     const updatedFav = favorites.includes(idMeal)
+           ?  favorites.filter((favId)=>favId !== idMeal)
+           : [...favorites, idMeal];
+        setFavorites(updatedFav); 
+        localStorage.setItem('favorites',JSON.stringify(updatedFav));
     };
+    console.log("Favorites: ",favorites)
     
 
     useEffect(()=>{
@@ -72,6 +72,15 @@ const Meal = ({searchTerm}) => {
 
 
 
+    const handleCardClick = (e, idMeal) =>{
+        if(!e.target.closest('.heart-icon')){
+            // Prevent default navigation behavior
+            e.preventDefault();
+          window.location.href=`/meal-details/${idMeal}`;
+        }
+
+    }
+
   return (
     <Container className='p-5'>
         {loading && <div>A moment please ...</div>}
@@ -85,10 +94,22 @@ const Meal = ({searchTerm}) => {
         
             <Col sm={4} className= "mb-2" key ={idMeal}>
 
-                <Link to ={`/meal-details/${idMeal}`} style={{textDecoration: 'none'}}>
-                <Card style={{width:'100%'}} key={idMeal}>
+                
+                <Card 
+                    style={{width:'100%'}} 
+                    key={idMeal}
+                    
+                >
+                 <Link to ={`/meal-details/${idMeal}`} style={{textDecoration: 'none'}}>
                     <Card.Img variant="top" src={strMealThumb} />
-                    <div  
+                    <Card.Body>
+                        <Card.Title>
+                            {strMeal}
+                        </Card.Title>
+                    </Card.Body>
+                </Link>
+
+                    <div className="heart-icon"
                          onMouseEnter={()=> setHoveredMealId(idMeal)}  
                          onMouseLeave={()=> setHoveredMealId(null)} 
                          onClick={()=>toggleFavorite(idMeal) }
@@ -100,13 +121,9 @@ const Meal = ({searchTerm}) => {
                         <FaRegHeart />
                      )}
                     </div>
-                    <Card.Body>
-                        <Card.Title>
-                            {strMeal}
-                        </Card.Title>
-                    </Card.Body>
+                    
                 </Card>
-                </Link>
+                
             
             </Col>
             

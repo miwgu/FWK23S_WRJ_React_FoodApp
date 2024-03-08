@@ -24,6 +24,7 @@ function MyNav({onSearch}) {
             navbarScroll
           >
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/meal-favorites">Favorites</Nav.Link>
 
           </Nav>
           <Form className="d-flex flex-grow-1 justify-content-end">

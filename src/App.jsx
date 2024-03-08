@@ -5,6 +5,7 @@ import MyNav from './components/nav/MyNav'
 import Meal_Page from './components/meal/Meal_Page';
 import { useState } from 'react';
 import MealDetails from './components/meal/MealDetails';
+import Meal_Favorites from './components/meal/Meal_Favorites';
 
 
 
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Meal_Page searchTerm={searchTerm}/>} />
         <Route path="/meal-details/:mealId" element={<MealDetails/>} />
+        <Route path="/meal-favorites" element={<Meal_Favorites/>} />
       </Routes>
 
     </>
