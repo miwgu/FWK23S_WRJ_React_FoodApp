@@ -13,17 +13,26 @@ const Meal = ({searchTerm}) => {
     const [favorites, setFavorites] = useState([]);
     const [hoveredMealId, setHoveredMealId] = useState(null);
 
-    const toggleFavorite = (idMeal) =>{
+    const toggleFavorite = (meal) =>{
+        const {idMeal, strMealThumb, strMeal}=meal;
+        // Check if the meal is already in favorites
+        const isFavorite = favorites.some((fav) => fav.idMeal === idMeal);
 
-     const updatedFav = favorites.includes(idMeal)
-           ?  favorites.filter((favId)=>favId !== idMeal)
-           : [...favorites, idMeal];
+        let updatedFav;
+
+        if (isFavorite){
+
+          updatedFav = favorites.filter((fav) => fav.idMeal !== idMeal);
+        } else {
+          updatedFav = [...favorites, { idMeal, strMealThumb, strMeal }];
+        }
+
         setFavorites(updatedFav); 
         localStorage.setItem('favorites',JSON.stringify(updatedFav));
         //onToggleFavorite(idMeal); // Call onToggleFavorite after updating favorites
     };
    
-    
+    console.log(favorites)
 
     useEffect(()=>{
        /* axios
@@ -105,10 +114,10 @@ const Meal = ({searchTerm}) => {
                     <div className="heart-icon mb-2"
                          onMouseEnter={()=> setHoveredMealId(idMeal)}  
                          onMouseLeave={()=> setHoveredMealId(null)} 
-                         onClick={()=>toggleFavorite(idMeal) }
+                         onClick={()=>toggleFavorite({idMeal, strMealThumb, strMeal}) }
                     >
 
-                     {favorites.includes(idMeal) || hoveredMealId === idMeal? (
+                     {favorites.some((fav)=> fav.idMeal === idMeal) || hoveredMealId === idMeal? (
                         <FaHeart color='red' />
                      ):(
                         <FaRegHeart />

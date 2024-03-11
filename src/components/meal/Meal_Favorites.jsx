@@ -16,6 +16,7 @@ const Meal_Favorites = () => {
         navigate('/');
       };
 
+
 /*
       const deleteFavorite = (idMeal) => {
         const updatedFav = favorites.filter((favId) => favId !== idMeal);
@@ -31,11 +32,15 @@ const Meal_Favorites = () => {
   */
     
 
-    /*useEffect(() => {
+    useEffect(() => {
         // Check if there are favorites when the component mounts
-        setHasFavorit(favorites.length > 0);
-    }, [favorites]);*/
+        if(favorites.length > 0)
+        setFavoritesData(favorites);
+    }, []);
 
+
+
+/*
     useEffect(()=>{
      const fetchData = async () =>{
         try{
@@ -59,7 +64,7 @@ const Meal_Favorites = () => {
 
     },[favorites]);
 
-
+*/
 
 
   return (
