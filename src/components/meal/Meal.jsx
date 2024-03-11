@@ -102,7 +102,7 @@ const Meal = ({searchTerm}) => {
                     </Card.Body>
                 </Link>
 
-                    <div className="heart-icon"
+                    <div className="heart-icon mb-2"
                          onMouseEnter={()=> setHoveredMealId(idMeal)}  
                          onMouseLeave={()=> setHoveredMealId(null)} 
                          onClick={()=>toggleFavorite(idMeal) }
