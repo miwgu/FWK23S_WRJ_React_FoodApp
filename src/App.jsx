@@ -10,14 +10,48 @@ import Meal_Favorites from './components/meal/Meal_Favorites';
 
 
 function App() {
+  const storedFavorites = JSON.parse(localStorage.getItem('favorites'))||[];
   const [searchTerm, setSearchTerm]= useState('');
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(storedFavorites);
   const navigate = useNavigate();
 
+  /*-------------App.jsx is parent for Meal.jsx  Use this function in Meal.jsx --------------*/
+  const toggleFavorite = (meal) =>{
+    const {idMeal, strMealThumb, strMeal}=meal;
+    // Check if the meal is already in favorites
+    const isFavorite = favorites.some((fav) => fav.idMeal === idMeal);
+
+    let updatedFav;
+
+    if (isFavorite){
+
+      updatedFav = favorites.filter((fav) => fav.idMeal !== idMeal);
+    } else {
+      updatedFav = [...favorites, { idMeal, strMealThumb, strMeal }];
+    }
+
+    setFavorites(updatedFav); 
+    localStorage.setItem('favorites',JSON.stringify(updatedFav));
+    //onToggleFavorite(idMeal); // Call onToggleFavorite after updating favorites
+};
+
+ /*-------------App.jsx is parent for Meal_Favorite.jsx Use this function in Meal_Favorites.jsx --------------*/
+    
+  const deleteFavorite = (idMeal) => {
+    const updatedFav = favorites.filter((favId) => favId !== idMeal);
+    const updatedFavoritesData = favorites.filter((meal) => meal.idMeal !== idMeal);
+    setFavorites(updatedFavoritesData);
+    localStorage.setItem('favorites', JSON.stringify(updatedFav));
+
+  };
+
+
+
   useEffect(()=>{
-    const storedfavorites = JSON.parse(localStorage.getItem('favorites'))||[];
-    setFavorites(storedfavorites);
-  }, []);
+    //const storedfavorites = JSON.parse(localStorage.getItem('favorites'))||[];
+    //setFavorites(storedfavorites);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   const handleSearch = (term) =>{
     setSearchTerm(term);
@@ -39,9 +73,9 @@ function App() {
     <MyNav onSearch={handleSearch} />
       <Routes>
         <Route path='/' 
-        element={<Meal_Page searchTerm={searchTerm}   />} />
+        element={<Meal_Page searchTerm={searchTerm}  favorites={favorites}  toggleFavorite={toggleFavorite} />} />
         <Route path="/meal-details/:mealId" element={<MealDetails/>} />
-        <Route path="/meal-favorites" element={<Meal_Favorites />} />
+        <Route path="/meal-favorites" element={<Meal_Favorites favorites={favorites} deleteFavorite={deleteFavorite} />} />
       </Routes>
 
     </>

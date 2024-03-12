@@ -5,11 +5,11 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { IoTrashOutline } from "react-icons/io5";
 
-const Meal_Favorites = () => {
+const Meal_Favorites = ({favorites, deleteFavorite }) => {
     
-    const favorites = JSON.parse(localStorage.getItem('favorites'))||[];
+    //const favorites = JSON.parse(localStorage.getItem('favorites'))||[];
     //const [hasFavorit, setHasFavorit] = useState(false);
-    const [favoritesData, setFavoritesData] = useState([]);
+    const [favoritesData, setFavoritesData] = useState(favorites);
     const navigate = useNavigate();
 
     const handleGotoHome = () =>{
@@ -17,26 +17,20 @@ const Meal_Favorites = () => {
       };
 
 
-/*
-      const deleteFavorite = (idMeal) => {
-        const updatedFav = favorites.filter((favId) => favId !== idMeal);
-        if(favorites.length>0){
-        setFavoritesData(favoritesData.filter((meal) => meal.idMeal !== idMeal));
-        localStorage.setItem('favorites', JSON.stringify(updatedFav));
-        }
-        else{
-          setFavoritesData([]);
-        }
-    };
 
-  */
-    
+    /*  const deleteFavorite = (idMeal) => {
+        const updatedFav = favorites.filter((favId) => favId !== idMeal);
+        const updatedFavoritesData = favoritesData.filter((meal) => meal.idMeal !== idMeal);
+    setFavoritesData(updatedFavoritesData);
+        localStorage.setItem('favorites', JSON.stringify(updatedFav));
+
+    };*/
+  
 
     useEffect(() => {
         // Check if there are favorites when the component mounts
-        if(favorites.length > 0)
         setFavoritesData(favorites);
-    }, []);
+    }, [favorites]);
 
 
 
@@ -100,11 +94,11 @@ const Meal_Favorites = () => {
                 </Card.Body>
               </Link>
 
-            {/*   <div className= "mb-2"
+               <div className= "mb-2"
                    onClick={()=>deleteFavorite(meal.idMeal)}
               >
               <IoTrashOutline />
-              </div> */}
+              </div> 
 
           </Card>
          </Col>

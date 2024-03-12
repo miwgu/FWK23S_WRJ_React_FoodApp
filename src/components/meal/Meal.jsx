@@ -5,33 +5,35 @@ import { fetchMeals } from '../api/getMeals';
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 
-const Meal = ({searchTerm}) => {
+const Meal = ({searchTerm, favorites, toggleFavorite}) => {
     
+    //const storedFavorites = JSON.parse(localStorage.getItem('favorites'))||[];
     const [data, setData]= useState(null);
     const [loading, setLoading]= useState(true);
     const [error, setError]= useState(null);
-    const [favorites, setFavorites] = useState([]);
+    const [favoritesData, setFavoritesData] = useState(favorites);
     const [hoveredMealId, setHoveredMealId] = useState(null);
 
+/* move to App.jsx
     const toggleFavorite = (meal) =>{
         const {idMeal, strMealThumb, strMeal}=meal;
         // Check if the meal is already in favorites
-        const isFavorite = favorites.some((fav) => fav.idMeal === idMeal);
+        const isFavorite = favoritesData.some((fav) => fav.idMeal === idMeal);
 
         let updatedFav;
 
         if (isFavorite){
 
-          updatedFav = favorites.filter((fav) => fav.idMeal !== idMeal);
+          updatedFav = favoritesData.filter((fav) => fav.idMeal !== idMeal);
         } else {
-          updatedFav = [...favorites, { idMeal, strMealThumb, strMeal }];
+          updatedFav = [...favoritesData, { idMeal, strMealThumb, strMeal }];
         }
 
-        setFavorites(updatedFav); 
+        setFavoritesData(updatedFav); 
         localStorage.setItem('favorites',JSON.stringify(updatedFav));
         //onToggleFavorite(idMeal); // Call onToggleFavorite after updating favorites
     };
-   
+*/
     console.log(favorites)
 
     useEffect(()=>{
@@ -79,9 +81,18 @@ const Meal = ({searchTerm}) => {
         fetchData();
 
         //Load favorites from localStrage on component mount
-        const storedFavorites = JSON.parse(localStorage.getItem('favorites'))||[];
-        setFavorites(storedFavorites);
+        //const storedFavorites = JSON.parse(localStorage.getItem('favorites'))||[];
+        //setFavoritesData(favoritesData);
     }, [searchTerm]);
+
+
+  /*------the effect will run whenever the favorites state changes.---
+    This ensures that the localStorage is updated with the latest value of favorites every time it changes.
+    If there is not this useEffect the heart icon cannot directory change color (red OR no-color)
+    It means when you go to other page and come back this page the localStrage is updated */
+    useEffect(() => {
+        setFavoritesData(favorites);
+    }, [favorites]);
 
   return (
     <Container className='p-5'>
@@ -117,7 +128,7 @@ const Meal = ({searchTerm}) => {
                          onClick={()=>toggleFavorite({idMeal, strMealThumb, strMeal}) }
                     >
 
-                     {favorites.some((fav)=> fav.idMeal === idMeal) || hoveredMealId === idMeal? (
+                     {favoritesData.some((fav)=> fav.idMeal === idMeal) || hoveredMealId === idMeal? (
                         <FaHeart color='red' />
                      ):(
                         <FaRegHeart />
