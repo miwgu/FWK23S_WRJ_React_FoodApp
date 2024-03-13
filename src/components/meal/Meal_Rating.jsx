@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import ratingData from './ratingData.json'; 
-import { FaSolarPanel } from 'react-icons/fa';
+import { FaStar } from "react-icons/fa6";
+import { FaStarHalfAlt } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 
 
 const Meal_Rating = () => {
@@ -27,7 +29,11 @@ const Meal_Rating = () => {
 
     const handleRatingChange = (id, newRating) => {
         setSelectedMeal(id);
-        setNewRating(newRating);
+        if(newRating==null){
+            setNewRating(0);
+        }else{setNewRating(newRating);
+        }
+       
         setShowModal(true);
     };
 
@@ -47,13 +53,35 @@ const Meal_Rating = () => {
             setNewRating(0);
     };
 
+    const renderStars =(averageRating) =>{
+       //How many several stars showld be there
+       const fullStars = Math.floor(averageRating);
+       const halfStar = averageRating - fullStars >= 0.5 ? 1: 0;
+       const emptyStars = 5 - fullStars -halfStar;
+
+       const starts =[];
+
+       for(let i= 0; i < fullStars; i++ ){
+           starts.push(<FaStar key={i} color='gold' />);
+       }
+
+       if (halfStar === 1){
+          starts.push(<FaStarHalfAlt key="half" color='gold' />);
+       }
+
+       for(let i =0; i< emptyStars; i++){
+          starts.push(<FaRegStar key={`empty-${i}`} color='gold' />)
+       }
+       return starts;
+    }
+
     return (
         <div>
             <h1>Meals</h1>
             {meals.map(meal => (
                 <div key={meal.id}>
                     <h3>{meal.name}</h3>
-                    <p>Average Rating: {meal.averageRating.toFixed(1)} stars</p>
+                    <p>{renderStars(meal.averageRating)}{" "}{meal.averageRating.toFixed(1)}</p>
                     <button onClick={()=> handleRatingChange(meal.id)}>Add Ratig</button>
                 </div>
             ))}
