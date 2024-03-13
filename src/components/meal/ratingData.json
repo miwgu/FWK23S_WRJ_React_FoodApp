@@ -1,0 +1,19 @@
+[
+    {
+        "id": 1,
+        "name": "Meal 1",
+        "ratings": [4, 3, 5]
+    },
+    {
+        "id": 2,
+        "name": "Meal 2",
+        "ratings": [2, 4, 3, 5]
+    },
+    {
+        "id": 3,
+        "name": "Meal 3",
+        "ratings": [5, 4, 5, 5, 3]
+    }
+    
+    
+]

@@ -6,6 +6,7 @@ import Meal_Page from './components/meal/Meal_Page';
 import { useState, useEffect } from 'react';
 import MealDetails from './components/meal/MealDetails';
 import Meal_Favorites from './components/meal/Meal_Favorites';
+import Meal_Rating from './components/meal/Meal_Rating';
 
 
 
@@ -76,6 +77,7 @@ function App() {
         element={<Meal_Page searchTerm={searchTerm}  favorites={favorites}  toggleFavorite={toggleFavorite} />} />
         <Route path="/meal-details/:mealId" element={<MealDetails/>} />
         <Route path="/meal-favorites" element={<Meal_Favorites favorites={favorites} deleteFavorite={deleteFavorite} />} />
+        <Route path ="/meal-rating" element={<Meal_Rating />} />
       </Routes>
 
     </>
