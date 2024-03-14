@@ -1,17 +1,20 @@
 [
     {
-        "id": 1,
-        "name": "Meal 1",
+        "idMeal": 52977,
+        "strMeal": "Corba",
+        "strMealThumb":"https://www.themealdb.com/images/media/meals/58oia61564916529.jpg",
         "ratings": [4, 3, 5]
     },
     {
-        "id": 2,
-        "name": "Meal 2",
+        "idMeal": 53065,
+        "strMeal": "Sushi",
+        "strMealThumb" :"https://www.themealdb.com/images/media/meals/g046bb1663960946.jpg",
         "ratings": [2, 4, 3, 5]
     },
     {
-        "id": 3,
-        "name": "Meal 3",
+        "idMeal": 53060,
+        "strMeal": "Burek",
+        "strMealThumb": "https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg",
         "ratings": [5, 4, 5, 5, 3]
     }
     

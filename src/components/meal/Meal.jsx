@@ -101,15 +101,15 @@ const Meal = ({searchTerm, favorites, toggleFavorite}) => {
             <div>{`There is a problem fetching the data -${error}`}</div>
         )}
 
-        <Row>
+        <Row className="justify-content-center">
          {data &&
          data.map(({idMeal, strMeal, strMealThumb})=>(
         
-            <Col sm={4} className= "mb-2" key ={idMeal}>
+            <Col sm={data.length <= 1 ? 6 : 4} className= "mb-2" key ={idMeal}>
 
                 
                 <Card 
-                    style={{width:'100%'}} 
+                    style={{width:'100%', height:'100%'}} 
                     key={idMeal}
                     
                 >

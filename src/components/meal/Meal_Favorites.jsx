@@ -77,9 +77,9 @@ const Meal_Favorites = ({favorites, deleteFavorite }) => {
 
      <>
         <h3>Favorites</h3> 
-    <Row>
+    <Row className="justify-content-center">
         {favoritesData.map((meal)=>(
-        <Col sm={4} className= "mb-2" key={meal.idMeal}>
+        <Col sm={favoritesData.length <= 1 ? 6 : 4} className= "mb-2" key={meal.idMeal}>
           <Card 
                     style={{width:'100%'}} 
                     key={meal.idMeal}
